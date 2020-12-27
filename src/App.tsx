@@ -8,12 +8,16 @@ import Updated from './components/Updated';
 import styled from 'styled-components'
 import Temperature from './components/Temperature';
 import { sortByTime } from './utils';
+import Humidity from './components/Humidity';
+import Battery from './components/Battery';
 
 
 const Footer = styled.footer`
-  position:absolute;
-  bottom: 0;
-  left: 20px;
+    position: fixed;
+    top: 0;
+    padding-left: 10px;
+    background-color: #484848;
+    width: 100%;
 `;
 
 function App() {
@@ -51,6 +55,8 @@ function App() {
       <div className="App">
         <LatestByTag name="Olohuone" />
         <Temperature />
+        <Humidity />
+        <Battery />
       </div>
       <Footer>
         <Updated />

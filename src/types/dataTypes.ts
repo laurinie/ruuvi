@@ -1,9 +1,10 @@
 export interface ContextData {
-    updated:string,
+    updated: string,
     dataPoints: DataPoint[]
 }
 
 export interface DataPoint {
+    [index: string]: string | number
     humidity: number
     id: string
     name: string

@@ -13,7 +13,7 @@ const ChartContainer = styled.div`
     justify-content: center;
 `;
 
-export default function Temperature() {
+export default function Battery() {
 
     const data = useContext(DataContext)
 
@@ -25,15 +25,15 @@ export default function Temperature() {
                         <AreaChart
                             data={sortByTime(data.dataPoints, 'asc').map(d => ({
                                 updated: new Date(d.updated).toLocaleString('fi-Fi'),
-                                temperature: d.temperature
+                                voltage: d.voltage
                             }))}
                             margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
                         >
                             <XAxis dataKey="updated" type={'category'} />
-                            <YAxis dataKey='temperature' domain={['dataMin', 'dataMax']} />
+                            <YAxis dataKey='voltage' domain={[2, 3.2]} />
                             <Tooltip />
                             <CartesianGrid stroke="#f5f5f5" />
-                            <Area type="monotone" dataKey="temperature" stroke="#e2e2e2" fill='#ffb41f' yAxisId={0} />
+                            <Area type="monotone" dataKey="voltage" stroke="#e2e2e2" fill='#1efa9b' yAxisId={0} />
                         </AreaChart>
                     </ResponsiveContainer>
                 </ChartContainer>
