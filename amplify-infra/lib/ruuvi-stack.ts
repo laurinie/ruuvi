@@ -34,18 +34,37 @@ export class RuuviStack extends cdk.Stack {
       }
     })
 
+    const getTagDataFunction = new Function(this, 'getRuuviTagData', {
+      runtime: Runtime.NODEJS_12_X,
+      handler: 'index.handler',
+      code: new AssetCode('./lambda/getRuuviTagData'),
+      environment: {
+        TABLE_NAME: table.tableName
+      }
+    })
 
-    const httpApi = new HttpApi(this, 'HttpApi');
+
+    const httpApi = new HttpApi(this, 'ruuviApi', {
+      corsPreflight: { allowOrigins: ['*'] }
+    })
+
     httpApi.addRoutes({
       path: '/tags',
       methods: [HttpMethod.POST],
       integration: new LambdaProxyIntegration({
         handler: saveTagDataFunction
-      }),
-
+      })
+    })
+    httpApi.addRoutes({
+      path: '/tags',
+      methods: [HttpMethod.GET],
+      integration: new LambdaProxyIntegration({
+        handler: getTagDataFunction
+      })
     })
 
 
     table.grantWriteData(saveTagDataFunction)
+    table.grantReadData(getTagDataFunction)
   }
 }
