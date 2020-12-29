@@ -13,7 +13,11 @@ const ChartContainer = styled.div`
     justify-content: center;
 `;
 
-export default function Temperature() {
+interface Props {
+    name:string;
+}
+
+export default function Temperature({name}:Props) {
 
     const data = useContext(DataContext)
 
@@ -23,7 +27,7 @@ export default function Temperature() {
                 <ChartContainer>
                     <ResponsiveContainer>
                         <AreaChart
-                            data={sortByTime(data.dataPoints, 'asc').map(d => ({
+                            data={sortByTime(data.dataPoints, 'asc').filter(d=>d.name === name).map(d => ({
                                 updated: new Date(d.updated).toLocaleString('fi-Fi'),
                                 temperature: d.temperature
                             }))}

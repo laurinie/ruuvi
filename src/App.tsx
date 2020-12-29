@@ -53,9 +53,9 @@ function App() {
   return (
     <DataContext.Provider value={data}>
       <div className="App">
-        <LatestByTag name="Olohuone" />
-        <Temperature />
-        <Humidity />
+        <LatestByTag name="Sauna" />
+        <Temperature name="Sauna"/>
+        <Humidity name="Sauna"/>
         <Battery />
       </div>
       <Footer>
