@@ -4,6 +4,7 @@ import { LambdaProxyIntegration } from "@aws-cdk/aws-apigatewayv2-integrations";
 import { HttpApi, HttpMethod } from "@aws-cdk/aws-apigatewayv2";
 import { AssetCode, Function, Runtime } from "@aws-cdk/aws-lambda";
 import { Table, AttributeType } from '@aws-cdk/aws-dynamodb'
+import { Duration } from "@aws-cdk/core";
 
 export class RuuviStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -37,6 +38,7 @@ export class RuuviStack extends cdk.Stack {
     const getTagDataFunction = new Function(this, 'getRuuviTagData', {
       runtime: Runtime.NODEJS_12_X,
       handler: 'index.handler',
+      timeout: Duration.seconds(30),
       code: new AssetCode('./lambda/getRuuviTagData'),
       environment: {
         TABLE_NAME: table.tableName
@@ -56,8 +58,8 @@ export class RuuviStack extends cdk.Stack {
       })
     })
     httpApi.addRoutes({
-      path: '/tags',
-      methods: [HttpMethod.GET],
+      path: '/getTagData',
+      methods: [HttpMethod.POST],
       integration: new LambdaProxyIntegration({
         handler: getTagDataFunction
       })

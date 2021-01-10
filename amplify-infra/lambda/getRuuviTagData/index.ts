@@ -1,16 +1,33 @@
 import { DynamoDB } from 'aws-sdk'
-import { ScanInput } from 'aws-sdk/clients/dynamodb';
+import { QueryInput } from 'aws-sdk/clients/dynamodb';
 
 const docClient = new DynamoDB.DocumentClient();
 
 exports.handler = async (event: any) => {
+    const message = JSON.parse(event.body)
+    console.log(message)
+
+    if(!message.id && !message.start){
+        return {
+            status:400
+        }
+    }
+
     const params = {
-        TableName: process.env.TABLE_NAME
-    } as ScanInput;
+        TableName: process.env.TABLE_NAME,
+        KeyConditionExpression: "id = :id and #ud > :u",
+        ExpressionAttributeNames: {
+            "#ud": "updated"
+        },
+        ExpressionAttributeValues: {
+            ":u": message.start,
+            ":id": message.id
+        }
+    } as QueryInput
 
     // let records:any[] = []
 
-    return await docClient.scan(params).promise()
+    return await docClient.query(params).promise()
 
     // function onScan(err: any, data: any) {
     //     if (err) {
