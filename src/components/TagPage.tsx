@@ -13,7 +13,7 @@ function TagPage({ match }: any) {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const tagId = match.params.id
 
-    const state = {
+    const tempState = {
         labels: dataPoints?.map(({ updated }) => new Date(updated).toLocaleString()),
         datasets: [
             {
@@ -27,6 +27,37 @@ function TagPage({ match }: any) {
             }
         ]
     }
+
+    const humState = {
+        labels: dataPoints?.map(({ updated }) => new Date(updated).toLocaleString()),
+        datasets: [
+            {
+                label: 'Kosteus',
+                fill: false,
+                lineTension: 0.5,
+                backgroundColor: '#c0b44b',
+                borderColor: '#d0ff00',
+                borderWidth: 2,
+                data: dataPoints?.map(({ humidity }) => humidity)
+            }
+        ]
+    }
+
+    const voltState = {
+        labels: dataPoints?.map(({ updated }) => new Date(updated).toLocaleString()),
+        datasets: [
+            {
+                label: 'Jännite',
+                fill: false,
+                lineTension: 0.5,
+                backgroundColor: '#b24bc0',
+                borderColor: '#cc00ff',
+                borderWidth: 2,
+                data: dataPoints?.map(({ voltage }) => voltage)
+            }
+        ]
+    }
+
     function fetchTagDataById(id: string) {
         setIsLoading(true)
         return apiGetData(id).then(data => {
@@ -56,12 +87,42 @@ function TagPage({ match }: any) {
             <Typography variant='h3'>{tagDetails?.name}</Typography>
             <Typography variant='caption'>{tagDetails?.group}</Typography>
             <Line
-                data={state}
+                data={tempState}
                 type={'line'}
                 options={{
                     title: {
                         display: true,
                         text: 'Lämpötila',
+                        fontSize: 20
+                    },
+                    legend: {
+                        display: true,
+                        position: 'right'
+                    }
+                }}
+            />
+            <Line
+                data={humState}
+                type={'line'}
+                options={{
+                    title: {
+                        display: true,
+                        text: 'Kosteus',
+                        fontSize: 20
+                    },
+                    legend: {
+                        display: true,
+                        position: 'right'
+                    }
+                }}
+            />
+            <Line
+                data={voltState}
+                type={'line'}
+                options={{
+                    title: {
+                        display: true,
+                        text: 'Jännite',
                         fontSize: 20
                     },
                     legend: {
