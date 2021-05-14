@@ -62,7 +62,7 @@ function TagPage({ match }: any) {
         setIsLoading(true)
         return apiGetData(id).then(data => {
             setDataPoints(data.Items)
-        }).finally(()=>setIsLoading(false))
+        }).finally(() => setIsLoading(false))
     }
 
     function fetchTags() {
@@ -75,6 +75,7 @@ function TagPage({ match }: any) {
         fetchTagDataById(tagId)
         fetchTags()
     }, [])
+
 
     return (
         <>
@@ -98,7 +99,7 @@ function TagPage({ match }: any) {
                     legend: {
                         display: true,
                         position: 'right'
-                    }
+                    },
                 }}
             />
             <Line
@@ -113,7 +114,7 @@ function TagPage({ match }: any) {
                     legend: {
                         display: true,
                         position: 'right'
-                    }
+                    },
                 }}
             />
             <Line
@@ -128,7 +129,7 @@ function TagPage({ match }: any) {
                     legend: {
                         display: true,
                         position: 'right'
-                    }
+                    },
                 }}
             />
         </>

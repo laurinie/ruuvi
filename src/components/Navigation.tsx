@@ -4,7 +4,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import GroupIcon from '@material-ui/icons/Group';
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -17,7 +17,8 @@ const useStyles = makeStyles({
 
 export const routes = [
     "",
-    "hallinta"
+    "hallinta",
+    "ryhmat"
 ]
 
 export default function Navigation() {
@@ -37,7 +38,7 @@ export default function Navigation() {
         >
             <BottomNavigationAction label="Etusivu" icon={<HomeIcon />} />
             <BottomNavigationAction label="Hallinta" icon={<SettingsIcon />} />
-            {/* <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} /> */}
+            <BottomNavigationAction label="Ryhmät" icon={<GroupIcon />} />
         </BottomNavigation>
     );
 }
