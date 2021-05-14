@@ -27,7 +27,11 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-function Tags() {
+interface Props {
+    enableSave?: boolean
+}
+
+function Tags({ enableSave }: Props) {
     const classes = useStyles();
     const [tags, setTags] = useState<Tag[]>()
     const [name, setName] = useState<string>("")
@@ -93,25 +97,27 @@ function Tags() {
                 ))}
             </List>
 
-            <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                maxWidth: 300,
-                gap: 15
-            }}>
-                <TextField id="name" label="Nimi" variant="outlined" value={name} onChange={({ target }) => setName(target.value)} />
-                <TextField id="id" label="ID" variant="outlined" value={id} onChange={({ target }) => setId(target.value)} />
-                <TextField id="group" label="Ryhmä" variant="outlined" value={group} onChange={({ target }) => setGroup(target.value)} />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    startIcon={<SaveIcon />}
-                    onClick={handelSave}
-                >
-                    Tallenna
+            {enableSave &&
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    maxWidth: 300,
+                    gap: 15
+                }}>
+                    <TextField id="name" label="Nimi" variant="outlined" value={name} onChange={({ target }) => setName(target.value)} />
+                    <TextField id="id" label="ID" variant="outlined" value={id} onChange={({ target }) => setId(target.value)} />
+                    <TextField id="group" label="Ryhmä" variant="outlined" value={group} onChange={({ target }) => setGroup(target.value)} />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        startIcon={<SaveIcon />}
+                        onClick={handelSave}
+                    >
+                        Tallenna
                 </Button>
-            </div>
+                </div>
+            }
         </>
     )
 }

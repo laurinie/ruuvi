@@ -11,6 +11,14 @@ import { sortByTime } from './utils';
 import Humidity from './components/Humidity';
 import Battery from './components/Battery';
 import Tags from './components/Tags';
+import { Home } from '@material-ui/icons';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Navigation from './components/Navigation';
 
 
 const Footer = styled.footer`
@@ -28,13 +36,13 @@ function App() {
 
   function getData() {
 
-  //   apiGetData(id)
-  //     .then(json => {
-  //       setData({
-  //         updated: new Date().toLocaleString('fi-FI'),
-  //         dataPoints: sortByTime(json.Items, 'desc')
-  //       })
-  //     })
+    //   apiGetData(id)
+    //     .then(json => {
+    //       setData({
+    //         updated: new Date().toLocaleString('fi-FI'),
+    //         dataPoints: sortByTime(json.Items, 'desc')
+    //       })
+    //     })
   }
 
   useEffect(() => {
@@ -53,16 +61,27 @@ function App() {
 
   return (
     <DataContext.Provider value={data}>
-      <div className="App">
-        <Tags />
-        {/* <LatestByTag name="Sauna" />
+      <Router>
+        <div className="App">
+          <Switch>
+            <Route path="/hallinta">
+              <Tags enableSave />
+            </Route>
+            <Route path="/sijainti">
+              <p>sijainti</p>
+            </Route>
+            <Route path="/">
+              <Tags />
+            </Route>
+          </Switch>
+          <Navigation />
+        </div>
+      </Router>
+
+      {/* <LatestByTag name="Sauna" />
         <Temperature name="Sauna"/>
         <Humidity name="Sauna"/>
         <Battery /> */}
-      </div>
-      <Footer>
-        {/* <Updated /> */}
-      </Footer>
     </DataContext.Provider>
   );
 }

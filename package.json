@@ -18,6 +18,7 @@
     "react": "^16.14.0",
     "react-chartjs-2": "^3.0.3",
     "react-dom": "^16.14.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "recharts": "^1.8.5",
     "styled-components": "^5.2.1",
@@ -49,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-router-dom": "^5.1.7",
     "@types/recharts": "^1.8.18"
   }
 }
