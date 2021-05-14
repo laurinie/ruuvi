@@ -19,6 +19,7 @@ import {
   Link
 } from "react-router-dom";
 import Navigation from './components/Navigation';
+import TagPage from './components/TagPage';
 
 
 const Footer = styled.footer`
@@ -69,6 +70,8 @@ function App() {
             </Route>
             <Route path="/sijainti">
               <p>sijainti</p>
+            </Route>
+            <Route path="/tag/:id" component={TagPage}>
             </Route>
             <Route path="/">
               <Tags />

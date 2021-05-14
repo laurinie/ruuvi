@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar, Button, Chip, CircularProgress, IconButton, List, ListItem, ListItemAvatar, ListItemText, TextField } from '@material-ui/core';
+import { Avatar, Button, Card, CardContent, Chip, CircularProgress, IconButton, List, ListItem, ListItemAvatar, ListItemText, TextField, Typography } from '@material-ui/core';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import TagIcon from '@material-ui/icons/LocalOffer';
 import SaveIcon from '@material-ui/icons/Save';
@@ -7,7 +7,8 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import { useEffect, useState } from 'react';
 import { apiAddTag, apiGetData, apiGetTags } from '../api/data';
 import { DataPoint, Tag } from '../types/dataTypes';
-import { deepOrange } from '@material-ui/core/colors';
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -17,12 +18,20 @@ const useStyles = makeStyles((theme: Theme) =>
             maxWidth: 360,
             backgroundColor: theme.palette.background.paper,
         },
-        avatar: {
-            marginRight: 10
+        list:{
+            width:'100%'
+        },
+        link:{
+            textDecoration:'none',
+            width: '100%'
         },
         orange: {
             color: theme.palette.getContrastText(deepOrange[500]),
             backgroundColor: deepOrange[500],
+        },
+        purple: {
+            color: theme.palette.getContrastText(deepPurple[500]),
+            backgroundColor: deepPurple[500],
         },
     }),
 );
@@ -37,7 +46,6 @@ function Tags({ enableSave }: Props) {
     const [name, setName] = useState<string>("")
     const [id, setId] = useState<string>("")
     const [group, setGroup] = useState<string>("")
-    const [tagData, setTagData] = useState<Map<string, DataPoint>>(new Map)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
 
@@ -80,19 +88,38 @@ function Tags({ enableSave }: Props) {
                 }
             </IconButton>
 
-            <List>
+            <List className={classes.list}>
                 {tags?.map(({ name, id, group, data }) => (
                     <ListItem key={id}>
-                        <ListItemAvatar className={classes.avatar}>
-                            <Chip
-                                avatar={
-                                    <Avatar className={classes.orange}>°C</Avatar>
-                                }
-                                label={data && data[0]?.temperature || '-'}
-                                variant="outlined"
-                            />
-                        </ListItemAvatar>
-                        <ListItemText primary={name} secondary={`${id} - ${group}`} />
+                        <Link to={`/tag/${id}`} className={classes.link}>
+                            <Card >
+                                <CardContent>
+                                    <Typography color="textSecondary">
+                                        {`${id} - ${group}`}
+                                    </Typography>
+                                    <Typography variant='h5'>
+                                        {name}
+                                    </Typography>
+                                    <Chip
+                                        avatar={
+                                            <Avatar className={classes.orange}>°C</Avatar>
+                                        }
+                                        label={data && data[0]?.temperature.toPrecision(3) || '-'}
+                                        variant="outlined"
+                                    />
+                                    <Chip
+                                        avatar={
+                                            <Avatar className={classes.purple}>%</Avatar>
+                                        }
+                                        label={data && data[0]?.humidity.toPrecision(3) || '-'}
+                                        variant="outlined"
+                                    />
+                                    <Typography variant="body2" component="p">
+                                        {data && new Date(data[0]?.updated).toLocaleString() || '-'}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Link>
                     </ListItem>
                 ))}
             </List>

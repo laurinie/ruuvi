@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -23,7 +23,7 @@ export const routes = [
 export default function Navigation() {
     const classes = useStyles();
     const history = useHistory();
-    const [value, setValue] = React.useState(routes.indexOf(history.location.pathname.replace("/","")));
+    const [value, setValue] = useState(routes.indexOf(history.location.pathname.replace("/","")));
 
     return (
         <BottomNavigation
@@ -41,3 +41,4 @@ export default function Navigation() {
         </BottomNavigation>
     );
 }
+
