@@ -12,3 +12,10 @@ export interface DataPoint {
     updated: string
     voltage: number
 }
+
+export interface Tag{
+    id: string,
+    name: string,
+    group: string,
+    data?: DataPoint[]
+}

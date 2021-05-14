@@ -10,6 +10,7 @@ import Temperature from './components/Temperature';
 import { sortByTime } from './utils';
 import Humidity from './components/Humidity';
 import Battery from './components/Battery';
+import Tags from './components/Tags';
 
 
 const Footer = styled.footer`
@@ -27,13 +28,13 @@ function App() {
 
   function getData() {
 
-    apiGetData()
-      .then(json => {
-        setData({
-          updated: new Date().toLocaleString('fi-FI'),
-          dataPoints: sortByTime(json.Items, 'desc')
-        })
-      })
+  //   apiGetData(id)
+  //     .then(json => {
+  //       setData({
+  //         updated: new Date().toLocaleString('fi-FI'),
+  //         dataPoints: sortByTime(json.Items, 'desc')
+  //       })
+  //     })
   }
 
   useEffect(() => {
@@ -53,13 +54,14 @@ function App() {
   return (
     <DataContext.Provider value={data}>
       <div className="App">
-        <LatestByTag name="Sauna" />
+        <Tags />
+        {/* <LatestByTag name="Sauna" />
         <Temperature name="Sauna"/>
         <Humidity name="Sauna"/>
-        <Battery />
+        <Battery /> */}
       </div>
       <Footer>
-        <Updated />
+        {/* <Updated /> */}
       </Footer>
     </DataContext.Provider>
   );

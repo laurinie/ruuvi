@@ -1,8 +1,13 @@
 .App {
   margin-top: 20px;
   padding: 10px;
-  text-align: center;
-  color: #61dafb
+  /* text-align: center; */
+  display: flex;
+  color: #61dafb;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .App-link {
