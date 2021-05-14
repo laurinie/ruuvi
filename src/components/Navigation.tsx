@@ -17,7 +17,6 @@ const useStyles = makeStyles({
 
 export const routes = [
     "",
-    "hallinta",
     "ryhmat"
 ]
 
@@ -37,7 +36,7 @@ export default function Navigation() {
             className={classes.root}
         >
             <BottomNavigationAction label="Etusivu" icon={<HomeIcon />} />
-            <BottomNavigationAction label="Hallinta" icon={<SettingsIcon />} />
+            {/* <BottomNavigationAction label="Hallinta" icon={<SettingsIcon />} /> */}
             <BottomNavigationAction label="Ryhmät" icon={<GroupIcon />} />
         </BottomNavigation>
     );
