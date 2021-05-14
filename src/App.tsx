@@ -44,26 +44,26 @@ function App() {
 
   return (
     // <DataContext.Provider value={data}>
+    <div className="App">
       <Router>
-        <div className="App">
-          <Switch>
-            <Route path="/hallinta">
-              <Tags enableSave />
-            </Route>
-            <Route path="/ryhmat">
-              <Groups/>
-            </Route>
-            <Route path="/ryhma/:name" component={Group}>
-            </Route>
-            <Route path="/tag/:id" component={TagPage}>
-            </Route>
-            <Route path="/">
-              <Tags />
-            </Route>
-          </Switch>
-          <Navigation />
-        </div>
+        <Switch>
+          <Route path="/hallinta">
+            <Tags enableSave />
+          </Route>
+          <Route path="/ryhmat">
+            <Groups />
+          </Route>
+          <Route path="/ryhma/:name" component={Group}>
+          </Route>
+          <Route path="/tag/:id" component={TagPage}>
+          </Route>
+          <Route path="/">
+            <Tags />
+          </Route>
+        </Switch>
+        <Navigation />
       </Router>
+    </div>
 
     // </DataContext.Provider>
   );
