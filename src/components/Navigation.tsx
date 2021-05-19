@@ -13,6 +13,9 @@ const useStyles = makeStyles({
         bottom: 0,
         width: '100%'
     },
+    space:{
+        height: 100
+    }
 });
 
 export const routes = [
@@ -23,22 +26,25 @@ export const routes = [
 export default function Navigation() {
     const classes = useStyles();
     const history = useHistory();
-    const [value, setValue] = useState(routes.indexOf(history.location.pathname.replace("/","")));
+    const [value, setValue] = useState(routes.indexOf(history.location.pathname.replace("/", "")));
 
     return (
-        <BottomNavigation
-            value={value}
-            onChange={(event, newValue) => {
-                setValue(newValue);
-                history.push(`/${routes[newValue]}`)
-            }}
-            showLabels
-            className={classes.root}
-        >
-            <BottomNavigationAction label="Etusivu" icon={<HomeIcon />} />
-            {/* <BottomNavigationAction label="Hallinta" icon={<SettingsIcon />} /> */}
-            <BottomNavigationAction label="Ryhmät" icon={<GroupIcon />} />
-        </BottomNavigation>
+        <>
+            <div className={classes.space}></div>
+            <BottomNavigation
+                value={value}
+                onChange={(event, newValue) => {
+                    setValue(newValue);
+                    history.push(`/${routes[newValue]}`)
+                }}
+                showLabels
+                className={classes.root}
+            >
+                <BottomNavigationAction label="Etusivu" icon={<HomeIcon />} />
+                {/* <BottomNavigationAction label="Hallinta" icon={<SettingsIcon />} /> */}
+                <BottomNavigationAction label="Ryhmät" icon={<GroupIcon />} />
+            </BottomNavigation>
+        </>
     );
 }
 

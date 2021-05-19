@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import LuxonUtils from '@date-io/luxon';
 
 const theme = createMuiTheme({
   palette: {
@@ -15,7 +17,9 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <React.StrictMode>
-      <App />
+      <MuiPickersUtilsProvider utils={LuxonUtils} locale={'fi'}>
+        <App />
+      </MuiPickersUtilsProvider>
     </React.StrictMode>
   </ThemeProvider>,
   document.getElementById('root')

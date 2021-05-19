@@ -9,6 +9,7 @@ import { apiAddTag, apiGetData, apiGetTags } from '../api/data';
 import { DataPoint, Tag } from '../types/dataTypes';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import { Link } from 'react-router-dom';
+import TagCard from './TagCard';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -19,7 +20,8 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.paper,
         },
         list:{
-            width:'100%'
+            width:'100%',
+            maxWidth: 500
         },
         link:{
             textDecoration:'none',
@@ -91,35 +93,12 @@ function Tags({ enableSave }: Props) {
             <List className={classes.list}>
                 {tags?.map(({ name, id, group, data }) => (
                     <ListItem key={id}>
-                        <Link to={`/tag/${id}`} className={classes.link}>
-                            <Card >
-                                <CardContent>
-                                    <Typography color="textSecondary">
-                                        {`${id} - ${group}`}
-                                    </Typography>
-                                    <Typography variant='h5'>
-                                        {name}
-                                    </Typography>
-                                    <Chip
-                                        avatar={
-                                            <Avatar className={classes.orange}>°C</Avatar>
-                                        }
-                                        label={data && data[0]?.temperature.toPrecision(3) || '-'}
-                                        variant="outlined"
-                                    />
-                                    <Chip
-                                        avatar={
-                                            <Avatar className={classes.purple}>%</Avatar>
-                                        }
-                                        label={data && data[0]?.humidity.toPrecision(3) || '-'}
-                                        variant="outlined"
-                                    />
-                                    <Typography variant="body2" component="p">
-                                        {data && new Date(data[0]?.updated).toLocaleString() || '-'}
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Link>
+                        <TagCard
+                            name={name}
+                            id={id}
+                            group={group}
+                            data={data}
+                        />
                     </ListItem>
                 ))}
             </List>

@@ -5,12 +5,14 @@ import { DataPoint, Tag } from '../types/dataTypes';
 import { Line } from 'react-chartjs-2';
 import { CircularProgress, IconButton, Typography } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import { DateTimePicker } from '@material-ui/pickers';
 
 function TagPage({ match }: any) {
 
     const [dataPoints, setDataPoints] = useState<DataPoint[]>()
     const [tagDetails, setTagDetails] = useState<Tag>()
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [startTime, setStartTime] = useState<Date>(new Date(Date.now() - 86400 * 1000))
     const tagId = match.params.id
 
     const tempState = {
@@ -60,7 +62,7 @@ function TagPage({ match }: any) {
 
     function fetchTagDataById(id: string) {
         setIsLoading(true)
-        return apiGetData(id).then(data => {
+        return apiGetData(id, new Date(startTime)).then(data => {
             setDataPoints(data.Items)
         }).finally(() => setIsLoading(false))
     }
@@ -71,22 +73,34 @@ function TagPage({ match }: any) {
         })
     }
 
+    // useEffect(() => {
+    //     fetchTagDataById(tagId)
+    //     
+    // }, [])
+
     useEffect(() => {
         fetchTagDataById(tagId)
         fetchTags()
-    }, [])
-
+    }, [startTime])
 
     return (
         <>
-            <IconButton aria-label="refresh" onClick={() => fetchTagDataById(tagId)}>
-                {isLoading ?
-                    <CircularProgress /> :
-                    <RefreshIcon />
-                }
-            </IconButton>
             <Typography variant='h3'>{tagDetails?.name}</Typography>
             <Typography variant='caption'>{tagDetails?.group}</Typography>
+            <div>
+                <DateTimePicker
+                    label="Aloitus aika"
+                    inputVariant="outlined"
+                    value={startTime}
+                    onChange={setStartTime}
+                />
+                <IconButton aria-label="refresh" onClick={() => fetchTagDataById(tagId)}>
+                    {isLoading ?
+                        <CircularProgress /> :
+                        <RefreshIcon />
+                    }
+                </IconButton>
+            </div>
             <Line
                 data={tempState}
                 type={'line'}
